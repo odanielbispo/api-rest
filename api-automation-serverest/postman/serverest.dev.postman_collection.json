@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "98693091-672b-4ff2-9a08-5b491379a8f6",
+		"name": "serverest.dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7519194"
+	},
+	"item": [
+		{
+			"name": "/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"fulano@qa.com\",\r\n  \"password\": \"teste\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://serverest.dev/login",
+					"protocol": "https",
+					"host": [
+						"serverest",
+						"dev"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/produtos/vkHz3vcX247ScSVe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://serverest.dev/produtos/vkHz3vcX247ScSVe",
+					"protocol": "https",
+					"host": [
+						"serverest",
+						"dev"
+					],
+					"path": [
+						"produtos",
+						"vkHz3vcX247ScSVe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/produtos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzYwMjQ5OTg2LCJleHAiOjE3NjAyNTA1ODZ9.09matqtrQoC2pvElkW-YOSUeoy9BwDffX-3OQJwRdMs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"iPhone 15 Pro\",\r\n  \"preco\": 7000,\r\n  \"descricao\": \"Celular\",\r\n  \"quantidade\": 150\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://serverest.dev/produtos",
+					"protocol": "https",
+					"host": [
+						"serverest",
+						"dev"
+					],
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/produtos/MnnPiJSmobNPBV3k",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://serverest.dev/produtos/MnnPiJSmobNPBV3k",
+					"protocol": "https",
+					"host": [
+						"serverest",
+						"dev"
+					],
+					"path": [
+						"produtos",
+						"MnnPiJSmobNPBV3k"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
