@@ -1,0 +1,135 @@
+site para testar API: serverest.dev
+O ServeRest é uma API REST gratuita que simula uma loja virtual com intuito de servir de material de estudos de testes de API.
+
+Login: 
+Metodo Post:
+
+{
+  "email": "fulano@qa.com",
+  "password": "teste"
+}
+
+return:
+{
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzYwMjQ5OTg2LCJleHAiOjE3NjAyNTA1ODZ9.09matqtrQoC2pvElkW-YOSUeoy9BwDffX-3OQJwRdMs"
+}
+
+Produtos
+url inicial: https://serverest.dev/produtos
+
+Metodo Post, com body raw JSon:
+
+{
+  "nome": "Logitech G Pro X 2",
+  "preco": 810,
+  "descricao": "Mouse",
+  "quantidade": 50
+}
+return:
+{
+    "message": "Cadastro realizado com sucesso",
+    "_id": "MnnPiJSmobNPBV3k"
+}
+
+Metodo Get:
+https://serverest.dev/produtos/MnnPiJSmobNPBV3k
+
+return:
+{
+    "nome": "Logitech G Pro X 2",
+    "preco": 810,
+    "descricao": "Mouse",
+    "quantidade": 50,
+    "_id": "MnnPiJSmobNPBV3k"
+}
+
+post:
+{
+  "nome": "iPhone 15 Pro",
+  "preco": 7000,
+  "descricao": "Celular",
+  "quantidade": 150
+}
+
+return:
+{
+    "message": "Cadastro realizado com sucesso",
+    "_id": "vkHz3vcX247ScSVe"
+}
+
+get:
+https://serverest.dev/produtos/vkHz3vcX247ScSVe
+
+return:
+
+{
+    "nome": "iPhone 15 Pro",
+    "preco": 7000,
+    "descricao": "Celular",
+    "quantidade": 150,
+    "_id": "vkHz3vcX247ScSVe"
+}
+
+///////////////////////////////////////////////////////////////
+
+automatizando:
+
+indo na aba de login e pedir um novo token authorization
+
+{
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzYwMjUwNDk0LCJleHAiOjE3NjAyNTEwOTR9.bkKL5IOpb0U2oCwgvY02SYpdrFev65eTRYhDQNCR7Lo"
+}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzYwMjUwNDk0LCJleHAiOjE3NjAyNTEwOTR9.bkKL5IOpb0U2oCwgvY02SYpdrFev65eTRYhDQNCR7Lo
+
+
+
+adicionando um Enviroment para https://serverest.dev, basicUrl e value
+
+após criado, chamar essa variavel. ao inves do url normal, apenas um "{{" para chamar a basicUrl eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzYwMjUwNDk0LCJleHAiOjE3NjAyNTEwOTR9
+
+pré request script
+script > pre request > console (no rodapé esquerdo)
+
+criar um script para fazer o login primeiro: uma variavel const que é um objeto:
+
+const postRequest = {
+    //url: "https://serverest.dev/login"
+    url: pm.enviroment.get(basicUrl) + "/login" //(para usar a variavel de ambiente que acabei de criar)
+}
+
+const postRequest = {
+    url: pm.enviroment.get(basicUrl) + "/login" //(para usar a variavel de ambiente que acabei de criar)
+    method: "POST",
+    body: {
+        mode: "raw",
+        options: {
+            raw: {
+                language: "json"
+            }
+        },
+        raw: JSON.stringify({
+            email: "fulano@qa.com",
+            password: "teste"
+        })
+    }
+}
+
+pm.sendRequest(postRequest, function (err, res){
+    console.log(res.json())
+})
+
+complicated, mas no objeto Raw linha 113 eu preciso que retorne como uma string e nao objeto,
+por isso o JSON.stringfy
+
+DEPOIS DISSO, tacale pau no SEND 
+
+só que
+
+toda vez que cutuco o SEND, ele gera um bearer token mas eu nao faco nada com ele... thank fazer
+console.log(res.json())
+apara e atribui a uma variavel
+let responseJson = res.json()
+let auth = responseJson["authorization"]
